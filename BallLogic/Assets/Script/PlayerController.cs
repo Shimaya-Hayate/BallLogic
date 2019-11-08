@@ -5,14 +5,18 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float v = 0.1f; //速度
-    float vX, vZ; //方向
+    [System.NonSerialized]
+    public float vX, vZ; //方向
     float posX, posZ; //Z座標
-    bool stop = true;
+    [System.NonSerialized]
+    public bool stop = true;
+
+    Vector3 initialPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        initialPosition = this.transform.position;
     }
 
     // Update is called once per frame
@@ -55,7 +59,7 @@ public class PlayerController : MonoBehaviour
         {
             if (vZ != 0)
             {
-                pos.z += vZ * v;
+                pos.z += vZ * v * Time.timeScale;
 
                 if ((posZ + vZ) * vZ <= pos.z * vZ)
                 {
@@ -67,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
             if (vX != 0)
             {
-                pos.x += vX * v;
+                pos.x += vX * v * Time.timeScale;
 
                 if ((posX + vX) * vX <= pos.x * vX)
                 {
@@ -79,5 +83,10 @@ public class PlayerController : MonoBehaviour
         }
 
         myTransform.position = pos; //座標の更新
+    }
+
+    public void PositionReset()
+    {
+        this.transform.position = initialPosition;
     }
 }

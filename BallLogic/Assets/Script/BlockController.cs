@@ -17,6 +17,20 @@ public class BlockController : MonoBehaviour
 
     bool full = false; //フルかどうか
 
+    //Run()
+    int num;
+    float wateTime = 0.6f;
+    bool run = false;
+
+    public GameObject player;
+
+    PlayerController playerCon;
+
+    void Start()
+    {
+        playerCon = player.GetComponent<PlayerController>();
+    }
+
     //ブロック生成
     public void BlockCreate(int n)
     {
@@ -62,5 +76,71 @@ public class BlockController : MonoBehaviour
             i--;
             full = false;
         }
+    }
+
+    //Run()を呼ぶ
+    public void RunCall()
+    {
+        Time.timeScale = 1;
+
+        //実行中でなければ
+        if (run == false)
+        {
+            run = true;
+
+            //リセットされていたら
+            if (num == 0)
+            {
+                Run();
+            }
+        }
+    }
+
+    //プログラム実行
+    void Run()
+    {
+        if (num < i)
+        {
+            //動作の種類別にパターン分け
+            switch (type[num])
+            {
+                case 0:
+                    playerCon.vZ = 1;
+                    break;
+                case 1:
+                    playerCon.vX = 1;
+                    break;
+                case 2:
+                    playerCon.vX = -1;
+                    break;
+            }
+
+            Invoke("Run", wateTime); //wateTimeの間隔で動作
+        }
+        //すべての動作が終了したら
+        else
+        {
+            run = false;
+        }
+
+        num++;
+    }
+
+    public void Stop()
+    {
+        Time.timeScale = 0;
+        run = false;
+    }
+
+    //リセット
+    public void Reset()
+    {
+        //実行中でなければ
+        if (run == false)
+        {
+            num = 0; //実行順序リセット
+            playerCon.PositionReset(); //座標リセット
+        }
+
     }
 }
