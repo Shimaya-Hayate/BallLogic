@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
         myTransform.position = pos; //座標の更新
     }
 
-    public void PositionReset()
+    public void PlayerReset()
     {
         this.transform.position = initialPosition;
     }

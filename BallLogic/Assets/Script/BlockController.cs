@@ -139,7 +139,7 @@ public class BlockController : MonoBehaviour
         if (run == false)
         {
             num = 0; //実行順序リセット
-            playerCon.PositionReset(); //座標リセット
+            playerCon.PlayerReset(); //座標と速度リセット
         }
 
     }
