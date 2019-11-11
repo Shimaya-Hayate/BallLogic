@@ -87,6 +87,9 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerReset()
     {
+        stop = true;
         this.transform.position = initialPosition;
+        vZ = 0;
+        vX = 0;
     }
 }

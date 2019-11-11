@@ -113,17 +113,21 @@ public class BlockController : MonoBehaviour
                 case 2:
                     playerCon.vX = -1;
                     break;
+                case 3:
+                    playerCon.vZ = -1;
+                    break;
             }
-
-            Invoke("Run", wateTime); //wateTimeの間隔で動作
+            if (run)
+            {
+                Invoke("Run", wateTime); //wateTimeの間隔で動作
+            }
         }
         //すべての動作が終了したら
         else
         {
             run = false;
         }
-
-        num++;
+            num++;
     }
 
     public void Stop()
@@ -138,6 +142,7 @@ public class BlockController : MonoBehaviour
         //実行中でなければ
         if (run == false)
         {
+            CancelInvoke(); //Invoke処理を取り消す
             num = 0; //実行順序リセット
             playerCon.PlayerReset(); //座標と速度リセット
         }
