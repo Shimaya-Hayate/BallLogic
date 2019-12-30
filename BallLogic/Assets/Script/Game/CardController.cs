@@ -23,12 +23,28 @@ public class CardController : MonoBehaviour
     bool run = false;
 
     public GameObject player;
-
     PlayerController playerCon;
+
+    //カード枚数管理用
+    string key = "KEY";
+    int[] cardCount = new int[100];
+    public Text[] cardCountText = new Text[100];
 
     void Start()
     {
         playerCon = player.GetComponent<PlayerController>();
+
+        CardCountRoad();
+    }
+    
+    void CardCountRoad()
+    {
+        for (int i = 0; i < cardCountText.Length; i++)
+        {
+            key = "KEY" + i;
+            cardCount[i] = PlayerPrefs.GetInt(key, 2);//ロード
+            cardCountText[i].text = "残り" + cardCount[i] + "枚";//表示
+        }
     }
 
     //ブロック生成
@@ -59,9 +75,14 @@ public class CardController : MonoBehaviour
         //フルでなければ生成
         if (full == false)
         {
-            cardClone[i] = Instantiate(card[n], position, Quaternion.identity, mainPanel.transform);
-            type[i] = n; //ブロックの種類を保存
-            i++;
+            if (cardCount[n] > 0)
+            {
+                cardClone[i] = Instantiate(card[n], position, Quaternion.identity, mainPanel.transform);
+                type[i] = n; //ブロックの種類を保存
+                i++;
+                cardCount[n]--; //カードの枚数を減らす
+                cardCountText[n].text = "残り" + cardCount[n] + "枚";//表示
+            }
         }
     }
 
@@ -75,6 +96,9 @@ public class CardController : MonoBehaviour
             Destroy(cardClone[j].gameObject);
             i--;
             full = false;
+
+            cardCount[type[j]]++; //カードの枚数を増やす
+            cardCountText[type[j]].text = "残り" + cardCount[type[j]] + "枚";//表示
         }
     }
 

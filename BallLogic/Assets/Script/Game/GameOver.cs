@@ -18,6 +18,7 @@ public class GameOver : MonoBehaviour
         if (other.gameObject.tag == "Player")//Playerなら
         {
             cardCon.Stop(); //止める
+            Debug.Log("GameOver");
         }    
     }
 }

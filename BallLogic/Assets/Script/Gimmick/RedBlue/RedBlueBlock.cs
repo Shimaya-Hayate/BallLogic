@@ -12,11 +12,21 @@ public class RedBlueBlock : MonoBehaviour
 
     bool oldRedBlue = false;
 
+    MeshRenderer meshrenderer;
+    Color color = new Color(0, 0, 0, 0);
+
+    Collider collider;
+
     void Start()
     {
-        redBlueBotton = GameObject.Find("RedBotton");   
+        redBlueBotton = GameObject.Find("RedBotton");
         rBB = redBlueBotton.GetComponent<RedBlueBotton>();
         oldRedBlue = !rBB.redBlue;
+
+        meshrenderer = this.GetComponent<MeshRenderer>();
+        color = meshrenderer.material.color;
+
+        collider = this.GetComponent<Collider>();
     }
 
     void Update()
@@ -30,19 +40,19 @@ public class RedBlueBlock : MonoBehaviour
                 if (redOrBlue == 0)
                 {
                     //実体化
-                    Debug.Log("赤実体化");
+                    Colored();
                 }
                 //自分が青ブロックなら
                 else
                 {
                     //透明化
-                    Debug.Log("青透明化");
+                    Cleared();
                 }
                 oldRedBlue = rBB.redBlue;
             }
         }
-        
-        if(oldRedBlue)
+
+        if (oldRedBlue)
         {
             //青ボタンが押されたら
             if (!rBB.redBlue)
@@ -51,16 +61,30 @@ public class RedBlueBlock : MonoBehaviour
                 if (redOrBlue == 0)
                 {
                     //透明化
-                    Debug.Log("赤透明化");
+                    Cleared();
                 }
                 //自分が青ブロックなら
                 else
                 {
                     //実体化
-                    Debug.Log("青実体化");
+                    Colored();
                 }
                 oldRedBlue = rBB.redBlue;
             }
         }
+    }
+
+    void Cleared()
+    {
+        color.a = 0.1f;
+        meshrenderer.material.color = color;
+        collider.isTrigger = true;
+    }
+
+    void Colored()
+    {
+        color.a = 1.0f;
+        meshrenderer.material.color = color;
+        collider.isTrigger = false;
     }
 }

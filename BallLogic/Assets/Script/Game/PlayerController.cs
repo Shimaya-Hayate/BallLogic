@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     [System.NonSerialized]
     public bool jamp = false;
 
+    [System.NonSerialized]
+    public bool reset = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,13 +95,14 @@ public class PlayerController : MonoBehaviour
         //ジャンプ中なら
         if (jamp)
             pos.y = initialPosition.y + 1f;
-        else
-            pos.y = initialPosition.y;
+        //else
+           // pos.y = initialPosition.y;
         myTransform.position = pos; //座標の更新
     }
 
     public void PlayerReset()
     {
+        reset = true;
         stop = true;
         this.transform.position = initialPosition;
         vZ = 0;
