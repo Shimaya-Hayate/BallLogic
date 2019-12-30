@@ -19,7 +19,7 @@ public class StageCreater : MonoBehaviour
 
     void Start()
     {
-        //StageCreate();
+        StageCreate();
     }
 
     public void StageCreate()

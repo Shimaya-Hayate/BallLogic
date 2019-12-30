@@ -7,11 +7,15 @@ public class PlayerController : MonoBehaviour
     public float v = 0.1f; //速度
     [System.NonSerialized]
     public float vX, vZ; //方向
-    float posX, posZ; //Z座標
+    [System.NonSerialized]
+    public float posX, posZ; //Z座標
     [System.NonSerialized]
     public bool stop = true;
-
+    [System.NonSerialized]
+    public Vector3 pos;
     Vector3 initialPosition;
+    [System.NonSerialized]
+    public bool jamp = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +27,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Transform myTransform = this.transform;
-        Vector3 pos = myTransform.position;
+        pos = myTransform.position;
 
         //静止中なら
         if(stop)
@@ -66,6 +70,8 @@ public class PlayerController : MonoBehaviour
                     pos.z = posZ + vZ;
                     stop = true;
                     vZ = 0;
+
+                    jamp = false;
                 }
             }
 
@@ -78,10 +84,16 @@ public class PlayerController : MonoBehaviour
                     pos.x = posX + vX;
                     stop = true;
                     vX = 0;
+
+                    jamp = false;
                 }
             }
         }
-
+        //ジャンプ中なら
+        if (jamp)
+            pos.y = initialPosition.y + 1f;
+        else
+            pos.y = initialPosition.y;
         myTransform.position = pos; //座標の更新
     }
 

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BlockController : MonoBehaviour
+public class CardController : MonoBehaviour
 {
-    public GameObject[] block; //ブロックのオリジナル
+    public GameObject[] card; //カードのオリジナル
     Vector3 position = new Vector3(0, 0, 0); //生成座標
     public GameObject mainPanel; //親指定（フォルダ指定）
 
     [System.NonSerialized]
-    public GameObject[] blockClone = new GameObject[100]; //クローンを保存
+    public GameObject[] cardClone = new GameObject[100]; //クローンを保存
     int[] type = new int[100]; //ブロックの種類を保存
     int i = 0;
     int j = 0;
@@ -59,7 +59,7 @@ public class BlockController : MonoBehaviour
         //フルでなければ生成
         if (full == false)
         {
-            blockClone[i] = Instantiate(block[n], position, Quaternion.identity, mainPanel.transform);
+            cardClone[i] = Instantiate(card[n], position, Quaternion.identity, mainPanel.transform);
             type[i] = n; //ブロックの種類を保存
             i++;
         }
@@ -72,7 +72,7 @@ public class BlockController : MonoBehaviour
 
         if (0 <= j)
         {
-            Destroy(blockClone[j].gameObject);
+            Destroy(cardClone[j].gameObject);
             i--;
             full = false;
         }
@@ -115,6 +115,34 @@ public class BlockController : MonoBehaviour
                     break;
                 case 3:
                     playerCon.vZ = -1;
+                    break;
+                case 4:
+                    playerCon.vZ = 2;
+                    break;
+                case 5:
+                    playerCon.vX = 2;
+                    break;
+                case 6:
+                    playerCon.vX = -2;
+                    break;
+                case 7:
+                    playerCon.vZ = -2;
+                    break;
+                case 8:
+                    playerCon.vZ = 1;
+                    playerCon.jamp = true;
+                    break;
+                case 9:
+                    playerCon.vX = 1;
+                    playerCon.jamp = true;
+                    break;
+                case 10:
+                    playerCon.vX = -1;
+                    playerCon.jamp = true;
+                    break;
+                case 11:
+                    playerCon.vZ = -1;
+                    playerCon.jamp = true;
                     break;
             }
             if (run)

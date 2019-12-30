@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GameOver : MonoBehaviour
 {
-    BlockController blockCon;
+    CardController cardCon;
 
     void Start()
     {
-        blockCon = GameObject.Find("BlockController").GetComponent<BlockController>();
+        cardCon = GameObject.Find("CardController").GetComponent<CardController>();
     }
 
     //触れたものがPlayerならゲームオーバー
@@ -17,7 +17,7 @@ public class GameOver : MonoBehaviour
         //ゲームオーバー処理
         if (other.gameObject.tag == "Player")//Playerなら
         {
-            blockCon.Stop(); //止める
+            cardCon.Stop(); //止める
         }    
     }
 }
