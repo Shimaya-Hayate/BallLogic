@@ -11,11 +11,13 @@ public class StageCreater : MonoBehaviour
      * 
     */
 
-    public GameObject cube;
-    public GameObject cu;
+   
+    public GameObject[] cube;
 
     private string[] Data; //1文字区切りにした文字を代入
     private int[] data = new int[100];//1文字区切りにした数字を代入
+
+    int y = 4;
 
     void Start()
     {
@@ -57,15 +59,16 @@ public class StageCreater : MonoBehaviour
                 switch (stage[i, j])
                 {
                     case 0:
+                        Instantiate(cube[0], new Vector3(0 + j, y, 0 + i), Quaternion.identity);
                         break;
                     case 1:
-                        Instantiate(cube, new Vector3(0 + j, 0, 0 + i), Quaternion.identity);
+                        Instantiate(cube[0], new Vector3(0 + j, y, 0 + i), Quaternion.identity);
                         break;
                     case 2:
-                        Instantiate(cu, new Vector3(0 + j, 0, 0 + i), Quaternion.identity);
+                        Instantiate(cube[0], new Vector3(0 + j, y, 0 + i), Quaternion.identity);
                         break;
                     case 3:
-                        Instantiate(cube, new Vector3(0 + j, 0, 0 + i), Quaternion.identity);
+                        Instantiate(cube[0], new Vector3(0 + j, y, 0 + i), Quaternion.identity);
                         break;
                 }
                 
